@@ -1,5 +1,6 @@
 package com.xxxxx.myblog;
 
+import com.xxxxx.myblog.utils.CommonUtil;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -25,21 +26,20 @@ public class IntegrationTest {
 
     @Test
     void assertBlogPageTitle_Content_And_StatusCode() {
-
-        //访问/路径，以String类型解析响应的主体entity
-        ResponseEntity<String> entity = restTemplate.getForEntity("/",String.class);
-
-        //判断响应码为HttpStatus.OK，即200
+        System.out.println(">> Assert blog page title, content and status code");
+        ResponseEntity<String> entity = restTemplate.getForEntity("/", String.class);
         assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
-
-        assertThat((entity.getBody()).contains("<h1>Hello World!</h1>"));
+        assertThat(entity.getBody()).contains("<h1>Blog</h1>", "title");
     }
 
     @Test
     void assertArticlePageTitle_Content_And_StatusCode() {
-        System.out.println(">> TODO");
+        System.out.println(">> Assert article page title, content and status code");
+        String title = "title1";
+        ResponseEntity<String> entity = restTemplate.getForEntity(String.format("/article/%s", CommonUtil.toSlug(title)), String.class);
+        assertThat(entity.getStatusCode()).isEqualTo(HttpStatus.OK);
+        assertThat(entity.getBody()).contains(title, "headline1", "content1");
     }
-
     @AfterAll
     void teardown() {
         System.out.println(">>  Tear down");

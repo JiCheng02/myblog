@@ -50,13 +50,13 @@ public class CommonUtil {
     private static String getDayOfMonthSuffix(int n) {
         switch(n % 10) {
             case 1:
-                return "${n}st";
+                return "st";
             case 2:
-                return "${n}nd";
+                return "nd";
             case 3:
-                return "${n}rd";
+                return "rd";
             default:
-                return "${n}th";
+                return "th";
         }
     }
 }

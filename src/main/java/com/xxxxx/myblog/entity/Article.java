@@ -1,5 +1,9 @@
 package com.xxxxx.myblog.entity;
 
+import com.xxxxx.myblog.utils.CommonUtil;
+import lombok.Data;
+import lombok.experimental.Accessors;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -7,6 +11,8 @@ import javax.persistence.ManyToOne;
 import java.time.LocalDateTime;
 
 @Entity
+@Data
+@Accessors(chain = true)
 public class Article {
 
     @Id
@@ -32,61 +38,10 @@ public class Article {
         addedAt = LocalDateTime.now();
     }
 
-    //getter与setter
-    public Long getId() {
-        return id;
-    }
-
-    public Article setId(Long id) {
-        this.id = id;
+    public Article setTitle(String title) {
+        this.title = title;
+        this.slug = CommonUtil.toSlug(title);
         return this;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getHeadline() {
-        return headline;
-    }
-
-    public void setHeadline(String headline) {
-        this.headline = headline;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
-    public String getSlug() {
-        return slug;
-    }
-
-    public void setSlug(String slug) {
-        this.slug = slug;
-    }
-
-    public LocalDateTime getAddedAt() {
-        return addedAt;
-    }
-
-    public void setAddedAt(LocalDateTime addedAt) {
-        this.addedAt = addedAt;
-    }
 }
